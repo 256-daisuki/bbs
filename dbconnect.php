@@ -1,8 +1,7 @@
 <?php
 require_once 'env.php';
 
-function connect()
-{
+function connect() {
     $host = DB_HOST;
     $db   = DB_NAME;
     $user = DB_USER;

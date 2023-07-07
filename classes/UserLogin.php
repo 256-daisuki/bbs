@@ -12,6 +12,7 @@ class UserLogic {
         $result = false;
         $sql = 'INSERT INFO users (name, email, 
         password) VALUES (?, ?, ?)';
+
         // ユーザーデータを配列に入れる
         $arr = [];
         $arr[] = $userData['username'];

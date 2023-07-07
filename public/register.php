@@ -1,6 +1,6 @@
 <?php
 
-require_once '../classes/UserLogic.php';
+require_once '../classes/UserLogin.php';
 
 //エラーメッセージ
 $err = [];
@@ -25,7 +25,7 @@ if ($password !== $password_conf) {
     $err[] = "パスワードが一致しません";
 }
 
-if (count($err) == 0) {
+if (count($err) === 0) {
     // ユーザー登録処理
     $hasCreated = UserLogic::createUser($_POST);
 

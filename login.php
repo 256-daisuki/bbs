@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>ログイン</title>
 </head>
 
 <body>
-    <h2>Login</h2>
+    <h2>ログイン</h2>
     <?php if (isset($errorMessage)) : ?>
         <p style="color: red;"><?php echo $errorMessage; ?></p>
     <?php endif; ?>
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="password" name="password" required><br>
         <input type="submit" value="Login">
     </form>
+    <a href="/create_account.php">新規登録</a>
 </body>
 
 </html>

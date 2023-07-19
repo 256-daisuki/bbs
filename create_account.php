@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p style="color: red;"><?php echo $errorMessage; ?></p>
     <?php endif; ?>
     <form action="create_account.php" method="POST">
-        <label for="username">Username:</label><input type="text" id="username" name="username" required><br>
-        <label for="email">Email:</label>
+        <label for="username">ユーザー名:</label><input type="text" id="username" name="username" required><br>
+        <label for="email">メールアドレス:</label>
         <input type="email" id="email" name="email" required><br>
-        <label for="password">Password:</label>
+        <label for="password">パスワード:</label>
         <input type="password" id="password" name="password" required><br>
-        <label for="confirm_password">Confirm Password:</label>
+        <label for="confirm_password">パスワード確認:</label>
         <input type="password" id="confirm_password" name="confirm_password" required><br>
         <input type="submit" value="Create Account">
     </form>

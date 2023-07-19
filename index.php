@@ -10,7 +10,6 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
-$username = $_SESSION['username'];
 //====================================//
 //==============bbs関係===============//
 //====================================//
@@ -46,7 +45,7 @@ function connect()
 </head>
 
 <body>
-    <h2>ようこそ<?php echo $username; ?>!</h2>
+    <h2>ようこそ<?php echo $email; ?>!</h2>
     <p>あなたは今ログインしています。</p>
     <a href="logout.php">ログアウト</a>
 </body>

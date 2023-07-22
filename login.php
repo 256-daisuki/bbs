@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ユーザーが存在するかチェック
     if ($stmt->rowCount() > 0) {
         // ログイン成功
+        $user = $stmt->fetch();
         $_SESSION['email'] = $email;
+        $_SESSION['username'] = $user['username']; // ユーザー名をセッションに保存
         header('Location: index.php');
         exit;
     } else {
@@ -52,5 +54,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     <a href="/create_account.php">新規登録</a>
 </body>
-
 </html>

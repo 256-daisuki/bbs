@@ -17,11 +17,6 @@ $username = $_SESSION['username']; // ユーザー名を取得
 //==============bbs関係===============//
 //====================================//
 
-// スレッド一覧を取得
-$sql = "SHOW TABLES LIKE 'thread_%'";
-$stmt = $dbh->query($sql);
-$threads = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
 // スレッドを作成する
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['thread_name']) && !empty($_POST['thread_name']) && isset($_POST['comment'])) {
@@ -29,35 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comment = $_POST['comment'];
 
         // 新しいテーブルを作成
-        $sql = "CREATE TABLE IF NOT EXISTS thread_{$threadName} (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, username VARCHAR(255), comment TEXT, created_at DATETIME)";
+        $sql = "CREATE TABLE IF NOT EXISTS thread_{$threadName} (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), comment TEXT, created_at DATETIME)";
         $stmt = $dbh->query($sql);
         if ($stmt) {
             // スレッド作成成功したら1番目の書き込みを追加
             $now = date('Y-m-d H:i:s');
-            $sql = "INSERT INTO thread_{$threadName} (user_id, username, comment, created_at) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO thread_{$threadName} (username, comment, created_at) VALUES (?, ?, ?)";
             $stmt = $dbh->prepare($sql);
-            $stmt->execute([1, $username, $comment, $now]);
+            $stmt->execute([$username, $comment, $now]);
 
             echo 'スレッドが作成されました。';
             // リダイレクトによりGETリクエストを行う
             header('Location: thread.php?name=' . urlencode($threadName));
             exit;
         } else {
-            echo 'スレッド名とコメントを入力してください。';
+            echo 'スレッドの作成に失敗しました。';
         }
+    } else {
+        echo 'スレッド名とコメントを入力してください。';
     }
-}
-
-// スレッド内での書き込み処理
-if (isset($_POST['thread']) && isset($_POST['comment'])) {
-    $threadName = $_POST['thread'];
-    $comment = $_POST['comment'];
-
-    // 書き込みを追加
-    $now = date('Y-m-d H:i:s');
-    $sql = "INSERT INTO thread_{$threadName} (user_id, username, comment, created_at) VALUES (?, ?, ?, ?)";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute([1, $username, $comment, $now]);
 }
 ?>
 
@@ -66,11 +51,12 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>BBS｜home</title>
 </head>
 
 <body>
     <h2>ようこそ<?php echo $username; ?>さん!</h2>
+    <a href="/bbs-rule.html">BBSのルール</a>
     <a href="logout.php">ログアウト</a>
 
     <h2>新しいスレッドを立てる</h2>
@@ -79,13 +65,13 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
         <input type="text" id="thread_name" name="thread_name" required><br>
         <label for="comment">コメント:</label>
         <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
-        <input type="submit" value="作成">
+        <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
     </form>
 
     <h2>スレッド一覧</h2>
     <p>表示順：
-        <a href="#" onclick="changeSort('new')">新しい順</a>
-        <a href="#" onclick="changeSort('old')">古い順</a>
+        <a href="#" onclick="changeSort('old')">新しい順</a><!--ChatGPTが変なコード書くせいで逆になってるけど気にしないでね☆-->
+        <a href="#" onclick="changeSort('new')">古い順</a>
         <a href="#" onclick="changeSort('popular')">人気順</a>
     </p>
     <ul id="threadList">
@@ -113,16 +99,31 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
 
                     return $lastIdB - $lastIdA;
                 });
+            } elseif ($sort === 'new') {
+                // 新しい順の場合はスレッドの最初のidの値でソート
+                usort($threads, function ($a, $b) use ($dbh) {
+                    $sql = "SELECT MIN(id) AS first_id FROM {$a}";
+                    $stmt = $dbh->query($sql);
+                    $firstIdA = $stmt->fetchColumn();
+
+                    $sql = "SELECT MIN(id) AS first_id FROM {$b}";
+                    $stmt = $dbh->query($sql);
+                    $firstIdB = $stmt->fetchColumn();
+
+                    return $firstIdA - $firstIdB;
+                });
             }
         }
 
         // スレッド一覧を表示
         foreach ($threads as $thread) {
-            $sql = "SELECT MAX(id) AS last_id FROM {$thread}";
+            $sql = "SELECT MAX(id) AS last_id, MIN(created_at) AS first_created_at FROM {$thread}";
             $stmt = $dbh->query($sql);
-            $lastId = $stmt->fetchColumn();
+            $threadInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+            $lastId = $threadInfo['last_id'];
+            $firstCreatedAt = $threadInfo['first_created_at'];
 
-            echo '<li><a href="thread.php?name=' . htmlspecialchars(substr($thread, 7)) . '">' . htmlspecialchars(substr($thread, 7)) . '（' . $lastId . '件）</a></li>';
+            echo '<li><a href="thread.php?name=' . htmlspecialchars(substr($thread, 7)) . '">' . htmlspecialchars(substr($thread, 7)) . '（' . $lastId . '件の書き込み' . '）</a></li>';
         }
         ?>
     </ul>
@@ -135,6 +136,7 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
             window.location.href = currentUrl.href;
         }
     </script>
+
 </body>
 
 </html>

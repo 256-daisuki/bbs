@@ -16,17 +16,17 @@ $username = $_SESSION['username']; // ユーザー名を取得
 //====================================//
 //==============bbs関係===============//
 //====================================//
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['thread']) && isset($_POST['comment'])) {
-        $threadName = $_POST['thread'];
-        $comment = $_POST['comment'];
 
-        // 書き込みを追加
-        $now = date('Y-m-d H:i:s');
-        $sql = "INSERT INTO thread_{$threadName} (user_id, username, comment, created_at) VALUES (?, ?, ?, ?)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([1, $username, $comment, $now]);
-    }
+// スレッド内での書き込み処理
+if (isset($_POST['thread']) && isset($_POST['comment'])) {
+    $threadName = $_POST['thread'];
+    $comment = $_POST['comment'];
+
+    // 書き込みを追加
+    $now = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO thread_{$threadName} (username, comment, created_at) VALUES (?, ?, ?)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([$username, $comment, $now]);
 }
 
 // スレッド名を取得
@@ -55,7 +55,6 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 
 <body>
     <h2>ようこそ<?php echo $username; ?>さん!</h2>
-    <p>あなたは今ログインしています。</p>
     <a href="index.php">インデックスに戻る</a>
     <a href="logout.php">ログアウト</a>
 
@@ -73,6 +72,15 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         echo '<p>' . $comment['id'] . '&nbsp;<strong>' . htmlspecialchars($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
     }
     ?>
+    <script>
+        // textareaのエンターキーの挙動をカスタマイズ
+        document.getElementById("comment").addEventListener("keydown", function(event) {
+            if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault(); // エンターキーのデフォルト挙動をキャンセル
+                this.form.submit(); // 送信
+            }
+        });
+    </script>
 </body>
 
 </html>

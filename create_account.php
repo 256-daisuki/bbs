@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" id="password" name="password" required><br>
         <label for="confirm_password">パスワード確認:</label>
         <input type="password" id="confirm_password" name="confirm_password" required><br>
-        <input type="submit" value="Create Account">
+        <input type="submit" value="Create Account"><a href="/bbs-rule.html">アカウントを作る前に読んでね</a>
     </form>
     <a href="/login.php">ログイン</a>
 </body>

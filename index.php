@@ -17,6 +17,11 @@ $username = $_SESSION['username']; // ユーザー名を取得
 //==============bbs関係===============//
 //====================================//
 
+// スレッド一覧を取得
+$sql = "SHOW TABLES LIKE 'thread_%'";
+$stmt = $dbh->query($sql);
+$threads = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
 // スレッドを作成する
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['thread_name']) && !empty($_POST['thread_name']) && isset($_POST['comment'])) {
@@ -66,7 +71,6 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
 
 <body>
     <h2>ようこそ<?php echo $username; ?>さん!</h2>
-    <p>あなたは今ログインしています。</p>
     <a href="logout.php">ログアウト</a>
 
     <h2>新しいスレッドを立てる</h2>
@@ -74,22 +78,63 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
         <label for="thread_name">スレッド名:</label>
         <input type="text" id="thread_name" name="thread_name" required><br>
         <label for="comment">コメント:</label>
-        <input type="text" id="comment" name="comment" required><br>
+        <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
         <input type="submit" value="作成">
     </form>
 
     <h2>スレッド一覧</h2>
-    <?php
-    // スレッド一覧を取得
-    $sql = "SHOW TABLES";
-    $stmt = $dbh->query($sql);
-    while ($row = $stmt->fetch()) {
-        $threadName = $row[0];
-        if (strpos($threadName, 'thread_') === 0) {
-            echo '<a href="thread.php?name=' . urlencode(substr($threadName, 7)) . '">' . substr($threadName, 7) . '</a><br>';
+    <p>表示順：
+        <a href="#" onclick="changeSort('new')">新しい順</a>
+        <a href="#" onclick="changeSort('old')">古い順</a>
+        <a href="#" onclick="changeSort('popular')">人気順</a>
+    </p>
+    <ul id="threadList">
+        <?php
+        // スレッド一覧の取得
+        $sql = "SHOW TABLES LIKE 'thread_%'";
+        $stmt = $dbh->query($sql);
+        $threads = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        // ソート方法に応じてスレッド一覧を並び替える
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+            if ($sort === 'old') {
+                $threads = array_reverse($threads);
+            } elseif ($sort === 'popular') {
+                // 人気順の場合はスレッドの最後のidの値でソート
+                usort($threads, function ($a, $b) use ($dbh) {
+                    $sql = "SELECT MAX(id) AS last_id FROM {$a}";
+                    $stmt = $dbh->query($sql);
+                    $lastIdA = $stmt->fetchColumn();
+
+                    $sql = "SELECT MAX(id) AS last_id FROM {$b}";
+                    $stmt = $dbh->query($sql);
+                    $lastIdB = $stmt->fetchColumn();
+
+                    return $lastIdB - $lastIdA;
+                });
+            }
         }
-    }
-    ?>
+
+        // スレッド一覧を表示
+        foreach ($threads as $thread) {
+            $sql = "SELECT MAX(id) AS last_id FROM {$thread}";
+            $stmt = $dbh->query($sql);
+            $lastId = $stmt->fetchColumn();
+
+            echo '<li><a href="thread.php?name=' . htmlspecialchars(substr($thread, 7)) . '">' . htmlspecialchars(substr($thread, 7)) . '（' . $lastId . '件）</a></li>';
+        }
+        ?>
+    </ul>
+
+    <script>
+        // 表示順を切り替えるJavaScript関数
+        function changeSort(sort) {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('sort', sort);
+            window.location.href = currentUrl.href;
+        }
+    </script>
 </body>
 
 </html>

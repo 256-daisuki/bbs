@@ -49,6 +49,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $threadName; ?></title>
 </head>
 
@@ -60,16 +61,16 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 
     <h2><?php echo htmlspecialchars($threadName); ?></h2>
     <form action="thread.php" method="POST">
-        <input type="hidden" name="thread" value="<?php echo htmlspecialchars($threadName); ?>">
+        <input type="hidden" name="thread" value="<?php echo $threadName; ?>">
         <label for="comment">コメント:</label>
-        <input type="text" id="comment" name="comment" required>
+        <textarea id="comment" name="comment" rows="1" required></textarea>
         <input type="submit" value="投稿">
     </form>
 
-    <h3>スレッド内の書き込み</h3>
+    <h3>書き込み</h3>
     <?php
     foreach ($comments as $comment) {
-        echo '<p><strong>' . htmlspecialchars($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>' . htmlspecialchars($comment['comment']) . '</p>';
+        echo '<p>' . $comment['id'] . '&nbsp;<strong>' . htmlspecialchars($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
     }
     ?>
 </body>

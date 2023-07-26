@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <h1>bbs.256server <div  style="color:red">試運転</div></h1>
     <h2>ようこそ<?php echo $username; ?>さん!</h2>
     <a href="/bbs-rule.html">BBSのルール</a>
     <a href="logout.php">ログアウト</a>

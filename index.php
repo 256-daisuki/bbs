@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <h2>スレッド一覧</h2>
     <p>表示順：
-        <a href="#" onclick="changeSort('old')">新しい順</a><!--ChatGPTが変なコード書くせいで逆になってるけど気にしないでね☆-->
-        <a href="#" onclick="changeSort('new')">古い順</a>
+        <a href="#" onclick="changeSort('new')">新しい順</a><!--ChatGPTが変なコード書くせいで逆になってるけど気にしないでね☆-->
+        <a href="#" onclick="changeSort('old')">古い順</a>
         <a href="#" onclick="changeSort('popular')">人気順</a>
     </p>
     <ul id="threadList">

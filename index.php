@@ -69,11 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
     </form>
 
-    <h2>スレッド一覧</h2>
-    <p>表示順：
-        <a href="#" onclick="changeSort('new')">新しい順</a><!--ChatGPTが変なコード書くせいで逆になってるけど気にしないでね☆-->
-        <a href="#" onclick="changeSort('old')">古い順</a>
-        <a href="#" onclick="changeSort('popular')">人気順</a>
+    <h2>スレッド一覧</h2><!--ここはすべてChatGPTが書きました　動かないからって私にモンク言わないで-->
+    <form action="" method="get">
+        <p>表示順：
+            <select name="sort" onchange="this.form.submit()">
+            <option value="new" <?php if (isset($_GET['sort']) && $_GET['sort'] === 'new') echo 'selected'; ?>>新しい順</option>
+            <option value="old" <?php if (isset($_GET['sort']) && $_GET['sort'] === 'old') echo 'selected'; ?>>古い順</option>
+            <option value="popular" <?php if (isset($_GET['sort']) && $_GET['sort'] === 'popular') echo 'selected'; ?>>人気順</option>
+            </select>
+        </p>
+    </form>
     </p>
     <ul id="threadList">
         <?php
@@ -86,7 +91,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_GET['sort'])) {
             $sort = $_GET['sort'];
             if ($sort === 'old') {
-                $threads = array_reverse($threads);
+                // 古い順はスレッドの最初の書き込み時間でソート
+                usort($threads, function ($a, $b) use ($dbh) {
+                    $sql = "SELECT MIN(created_at) AS first_created_at FROM {$a}";
+                    $stmt = $dbh->query($sql);
+                    $firstCreatedAtA = $stmt->fetchColumn();
+
+                    $sql = "SELECT MIN(created_at) AS first_created_at FROM {$b}";
+                    $stmt = $dbh->query($sql);
+                    $firstCreatedAtB = $stmt->fetchColumn();
+
+                    return strtotime($firstCreatedAtA) - strtotime($firstCreatedAtB);
+                });
+            } elseif ($sort === 'new') {
+                // 新しい順はスレッドの最初の書き込み時間でソート
+                usort($threads, function ($a, $b) use ($dbh) {
+                    $sql = "SELECT MIN(created_at) AS first_created_at FROM {$a}";
+                    $stmt = $dbh->query($sql);
+                    $firstCreatedAtA = $stmt->fetchColumn();
+
+                    $sql = "SELECT MIN(created_at) AS first_created_at FROM {$b}";
+                    $stmt = $dbh->query($sql);
+                    $firstCreatedAtB = $stmt->fetchColumn();
+
+                    return strtotime($firstCreatedAtB) - strtotime($firstCreatedAtA);
+                });
             } elseif ($sort === 'popular') {
                 // 人気順の場合はスレッドの最後のidの値でソート
                 usort($threads, function ($a, $b) use ($dbh) {
@@ -99,19 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $lastIdB = $stmt->fetchColumn();
 
                     return $lastIdB - $lastIdA;
-                });
-            } elseif ($sort === 'new') {
-                // 新しい順の場合はスレッドの最初のidの値でソート
-                usort($threads, function ($a, $b) use ($dbh) {
-                    $sql = "SELECT MIN(id) AS first_id FROM {$a}";
-                    $stmt = $dbh->query($sql);
-                    $firstIdA = $stmt->fetchColumn();
-
-                    $sql = "SELECT MIN(id) AS first_id FROM {$b}";
-                    $stmt = $dbh->query($sql);
-                    $firstIdB = $stmt->fetchColumn();
-
-                    return $firstIdA - $firstIdB;
                 });
             }
         }
@@ -130,14 +146,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </ul>
 
     <script>
-        // 表示順を切り替えるJavaScript関数
-        function changeSort(sort) {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('sort', sort);
-            window.location.href = currentUrl.href;
-        }
-    </script>
-
+    // 表示順を切り替えるJavaScript関数
+    function changeSort() {
+        const sort = document.querySelector('select[name="sort"]').value;
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set('sort', sort);
+        window.location.href = currentUrl.href;
+    }
+</script>
 </body>
-
 </html>

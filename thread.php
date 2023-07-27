@@ -65,11 +65,29 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         <textarea id="comment" name="comment" rows="1" required></textarea>
         <input type="submit" value="投稿">
     </form>
+    <label>画像アップローダー</label>
+    <form action="img-upload.php" method="post" enctype="multipart/form-data">
+        <label for="image">画像を選択してください:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="submit" value="アップロード">
+    </form>
 
     <h3>書き込み</h3>
     <?php
+    // カスタムのエスケープ関数
+    function custom_escape($str) {
+        return nl2br(htmlspecialchars($str, ENT_QUOTES));
+    }
+
     foreach ($comments as $comment) {
-        echo '<p>' . $comment['id'] . '&nbsp;<strong>' . htmlspecialchars($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
+        echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
+        
+        // 画像リンクをimgタグで表示
+        $content = custom_escape($comment['comment']);
+        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+)/', '<img src="$1" alt="$1">', $content);
+        echo $content;
+
+        echo '</p>';
     }
     ?>
     <script>

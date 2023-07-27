@@ -68,6 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
         <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
     </form>
+    <h2>画像アップローダー</h2>
+    <form action="img-upload.php" method="post" enctype="multipart/form-data">
+        <label for="image">画像を選択してください:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="submit" value="アップロード">
+    </form>
 
     <h2>スレッド一覧</h2><!--ここはすべてChatGPTが書きました　動かないからって私にモンク言わないで-->
     <form action="" method="get">
@@ -153,6 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         currentUrl.searchParams.set('sort', sort);
         window.location.href = currentUrl.href;
     }
-</script>
+    </script>
 </body>
 </html>

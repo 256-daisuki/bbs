@@ -51,6 +51,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $threadName; ?></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -84,7 +85,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         
         // 画像リンクをimgタグで表示
         $content = custom_escape($comment['comment']);
-        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+)/', '<img src="$1" alt="$1">', $content);
+        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+)/', '<a href="$1"><img src="$1" class="img" alt="$1"></a>', $content);
         echo $content;
 
         echo '</p>';

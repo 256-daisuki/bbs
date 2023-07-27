@@ -62,21 +62,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>ようこそ<?php echo $username; ?>さん!</h2>
     <a href="/bbs-rule.html">BBSのルール</a>
     <a href="logout.php">ログアウト</a>
-
-    <h2>新しいスレッドを立てる</h2>
-    <form action="index.php" method="POST">
-        <label for="thread_name">スレッド名:</label>
-        <input type="text" id="thread_name" name="thread_name" required><br>
-        <label for="comment">コメント:</label>
-        <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
-        <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
-    </form>
-    <h2>画像アップローダー</h2>
-    <form action="img-upload.php" method="post" enctype="multipart/form-data">
-        <label for="image">画像を選択してください:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
-        <input type="submit" value="アップロード">
-    </form>
+    <ul class="tools">
+        <li>
+            <h2>新しいスレッドを立てる</h2>
+            <form action="index.php" method="POST">
+                <label for="thread_name">スレッド名:</label>
+                <input type="text" id="thread_name" name="thread_name" required><br>
+                <label for="comment">コメント:</label>
+                <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
+                <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
+            </form>
+        </li>
+        <li>
+            <h2>画像アップローダー</h2>
+            <form action="img-upload.php" method="post" enctype="multipart/form-data">
+                <label for="image">画像を選択してください:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <input type="submit" value="アップロード">
+            </form>
+        </li>
+    </ul>
 
     <h2>スレッド一覧</h2><!--ここはすべてChatGPTが書きました　動かないからって私にモンク言わないで-->
     <form action="" method="get">

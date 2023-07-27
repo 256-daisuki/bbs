@@ -1,0 +1,11 @@
+.tools {
+    display: flex;
+}
+
+.tools li {
+    margin: 5%;
+}
+
+.img {
+    width: 100px;
+}

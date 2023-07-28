@@ -63,7 +63,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <form action="thread.php" method="POST">
         <input type="hidden" name="thread" value="<?php echo $threadName; ?>">
         <label for="comment">コメント:</label>
-        <textarea id="comment" name="comment" rows="1" required></textarea>
+        <textarea id="comment" name="comment" rows="1" cols="32" required onkeyup="ShowLength(value);" ></textarea>
         <input type="submit" value="投稿">
     </form>
     <label>画像アップローダー</label>
@@ -98,7 +98,17 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 event.preventDefault(); // エンターキーのデフォルト挙動をキャンセル
                 this.form.submit(); // 送信
             }
-        });
+        })
+    </script>
+    <script>
+        const textarea = document.getElementById('comment');
+
+        function adjustTextareaRows() {
+            const lines = textarea.value.split('\n').length;
+            textarea.rows = lines;
+        }
+
+        textarea.addEventListener('input', adjustTextareaRows);
     </script>
 </body>
 

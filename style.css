@@ -9,7 +9,3 @@
 .img {
     width: 30vh;
 }
-
-textarea {
-    resize: none; /*大きさを変えることができないようにする*/
-}

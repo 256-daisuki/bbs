@@ -1,7 +1,7 @@
 <?php
 // defineの値は環境によって変えてください。
 define('HOSTNAME', 'localhost');
-define('DATABASE', 'user');
+define('DATABASE', 'bbs');
 define('USERNAME', 'php-login');
 define('PASSWORD', '');
 

@@ -7,5 +7,7 @@ SQL文
     password VARCHAR(64) NOT NULL
 );
 
-ALTER TABLE users ADD COLUMN username VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;`
+ALTER TABLE users ADD COLUMN username VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+ALTER TABLE users ADD account_created_time DATETIME;
+`
 を実行 

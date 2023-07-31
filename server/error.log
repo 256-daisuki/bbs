@@ -1,0 +1,13 @@
+[Mon Jul 31 21:48:58.144179 2023] [mpm_event:notice] [pid 2052:tid 139732843259776] AH00489: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
+[Mon Jul 31 21:48:58.144280 2023] [core:notice] [pid 2052:tid 139732843259776] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Jul 31 21:49:39.017663 2023] [mpm_event:notice] [pid 2052:tid 139732843259776] AH00492: caught SIGWINCH, shutting down gracefully
+[Mon Jul 31 21:49:39.068681 2023] [mpm_prefork:notice] [pid 8740] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
+[Mon Jul 31 21:49:39.068761 2023] [core:notice] [pid 8740] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Jul 31 21:49:39.200815 2023] [mpm_prefork:notice] [pid 8740] AH00170: caught SIGWINCH, shutting down gracefully
+[Mon Jul 31 21:49:39.313101 2023] [mpm_prefork:notice] [pid 8780] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
+[Mon Jul 31 21:49:39.313140 2023] [core:notice] [pid 8780] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Jul 31 22:04:00.781716 2023] [mpm_prefork:notice] [pid 8780] AH00170: caught SIGWINCH, shutting down gracefully
+[Mon Jul 31 22:04:29.574870 2023] [mpm_prefork:notice] [pid 726] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
+[Mon Jul 31 22:04:29.611006 2023] [core:notice] [pid 726] AH00094: Command line: '/usr/sbin/apache2'
+[Mon Jul 31 22:09:54.293066 2023] [php:error] [pid 738] [client 192.168.100.2:57874] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'account_created_time' in 'field list' in /var/www/html/create_account.php:39\nStack trace:\n#0 /var/www/html/create_account.php(39): PDOStatement->execute()\n#1 {main}\n  thrown in /var/www/html/create_account.php on line 39, referer: http://192.168.100.23/create_account.php
+[Mon Jul 31 22:10:55.524121 2023] [php:error] [pid 1120] [client 192.168.100.2:58020] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'account_created_time' in 'field list' in /var/www/html/create_account.php:39\nStack trace:\n#0 /var/www/html/create_account.php(39): PDOStatement->execute()\n#1 {main}\n  thrown in /var/www/html/create_account.php on line 39, referer: http://192.168.100.23/create_account.php

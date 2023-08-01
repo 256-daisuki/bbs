@@ -49,15 +49,15 @@ server {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
-		root	/var/www;
+		root	/var/www/html;
 		index	index.php;
 	}
 
 	
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
-	        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-		root           /var/www;
+			fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+		root           /var/www/html;
 		include        fastcgi_params;
 	}
 

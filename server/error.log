@@ -1,13 +1,65 @@
-[Mon Jul 31 21:48:58.144179 2023] [mpm_event:notice] [pid 2052:tid 139732843259776] AH00489: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Mon Jul 31 21:48:58.144280 2023] [core:notice] [pid 2052:tid 139732843259776] AH00094: Command line: '/usr/sbin/apache2'
-[Mon Jul 31 21:49:39.017663 2023] [mpm_event:notice] [pid 2052:tid 139732843259776] AH00492: caught SIGWINCH, shutting down gracefully
-[Mon Jul 31 21:49:39.068681 2023] [mpm_prefork:notice] [pid 8740] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Mon Jul 31 21:49:39.068761 2023] [core:notice] [pid 8740] AH00094: Command line: '/usr/sbin/apache2'
-[Mon Jul 31 21:49:39.200815 2023] [mpm_prefork:notice] [pid 8740] AH00170: caught SIGWINCH, shutting down gracefully
-[Mon Jul 31 21:49:39.313101 2023] [mpm_prefork:notice] [pid 8780] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Mon Jul 31 21:49:39.313140 2023] [core:notice] [pid 8780] AH00094: Command line: '/usr/sbin/apache2'
-[Mon Jul 31 22:04:00.781716 2023] [mpm_prefork:notice] [pid 8780] AH00170: caught SIGWINCH, shutting down gracefully
-[Mon Jul 31 22:04:29.574870 2023] [mpm_prefork:notice] [pid 726] AH00163: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
-[Mon Jul 31 22:04:29.611006 2023] [core:notice] [pid 726] AH00094: Command line: '/usr/sbin/apache2'
-[Mon Jul 31 22:09:54.293066 2023] [php:error] [pid 738] [client 192.168.100.2:57874] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'account_created_time' in 'field list' in /var/www/html/create_account.php:39\nStack trace:\n#0 /var/www/html/create_account.php(39): PDOStatement->execute()\n#1 {main}\n  thrown in /var/www/html/create_account.php on line 39, referer: http://192.168.100.23/create_account.php
-[Mon Jul 31 22:10:55.524121 2023] [php:error] [pid 1120] [client 192.168.100.2:58020] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'account_created_time' in 'field list' in /var/www/html/create_account.php:39\nStack trace:\n#0 /var/www/html/create_account.php(39): PDOStatement->execute()\n#1 {main}\n  thrown in /var/www/html/create_account.php on line 39, referer: http://192.168.100.23/create_account.php
+2023/08/01 23:44:02 [error] 768#768: *16 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/01 23:44:06 [error] 768#768: *16 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:28 [notice] 2231#2231: signal process started
+2023/08/02 08:48:31 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:31 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:31 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:32 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:34 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:34 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:35 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:35 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:36 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:37 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:37 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:38 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:38 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"
+2023/08/02 08:48:38 [error] 2232#2232: *20 FastCGI sent in stderr: "PHP message: PHP Warning:  require_once(/var/www/html/phpMyAdmin/libraries/constants.php): Failed to open stream: No such file or directory in /var/www/html/phpMyAdmin/index.php on line 22PHP message: PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/phpMyAdmin/libraries/constants.php' (include_path='.:/usr/share/php') in /var/www/html/phpMyAdmin/index.php:22
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/phpMyAdmin/index.php on line 22" while reading response header from upstream, client: 192.168.100.2, server: _, request: "GET /phpMyAdmin/index.php HTTP/1.1", upstream: "fastcgi://unix:/run/php/php8.1-fpm.sock:", host: "192.168.100.21"

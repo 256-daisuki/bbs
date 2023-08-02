@@ -85,7 +85,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         
         // 画像リンクをimgタグで表示
         $content = custom_escape($comment['comment']);
-        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+)/', '<a href="$1"><img src="$1" class="img" alt="$1"></a>', $content);
+        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+\.(?:jpg|jpeg|png|gif))(?![^\s<>"\'()]*>)/i', '<a href="$1"><img src="$1" class="img" alt="$1"></a>', $content);
         echo $content;
 
         echo '</p>';

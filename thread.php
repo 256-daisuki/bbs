@@ -33,8 +33,8 @@ if (isset($_POST['thread']) && isset($_POST['comment'])) {
 if (isset($_GET['name']) && !empty($_GET['name'])) {
     $threadName = $_GET['name'];
 
-    // スレッド内の書き込みを取得
-    $sql = "SELECT * FROM thread_{$threadName} ORDER BY created_at DESC";
+    // スレッド内の書き込みを取得（idの新しいものが上にくるようにする）
+    $sql = "SELECT * FROM thread_{$threadName} ORDER BY id DESC";
     $stmt = $dbh->query($sql);
     $comments = $stmt->fetchAll();
 } else {
@@ -82,12 +82,20 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 
     foreach ($comments as $comment) {
         echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
-        
-        // 画像リンクをimgタグで表示
-        $content = custom_escape($comment['comment']);
-        $content = preg_replace('/(https?:\/\/[^\s<>"\'()]+\.(?:jpg|jpeg|png|gif))(?![^\s<>"\'()]*>)/i', '<a href="$1"><img src="$1" class="img" alt="$1"></a>', $content);
-        echo $content;
 
+        // コメント内のURLを解析して画像ファイルを<img>タグで表示
+        $content = custom_escape($comment['comment']);
+        $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
+            $url = $matches[1];
+            $headers = get_headers($url, 1);
+            if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'image/') === 0) {
+                return '<a href="' . $url . '"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
+            } else {
+                return '<a href="' . $url . '">' . $url . '</a>';
+            }
+        }, $content);
+
+        echo $content;
         echo '</p>';
     }
     ?>

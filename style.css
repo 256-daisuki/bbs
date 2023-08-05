@@ -1,13 +1,28 @@
-.tools {
+body {
+    background-color: #eee;
+}
+
+.test {
+    justify-content: center;
+    align-items: center;
     display: flex;
 }
 
-.tools li {
-    margin: 5%;
+.popup-container {
+    position: fixed;
+    top: -100%;
+    left: 0 auto;
+    display: flex;
+    transition: top 0.7s;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px gray;
 }
 
 .img {
     width: 30vh;
-}focus {
-	outline: none;
 }

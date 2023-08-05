@@ -56,30 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <h1>bbs.256server <div  style="color:red">試運転</div></h1>
-    <h2>ようこそ<?php echo $username; ?>さん!</h2>
+    <h1>bbs.256server <div style="color:red">試運転</div></h1>
+    <div class="test">
+        <div class="popup-container">
+            <div class="popup-content">
+                <p>ようこそ！</p>
+                <p><?php echo $username; ?>さん！</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2></h2>
     <a href="/bbs-rule.html">BBSのルール</a>
     <a href="logout.php">ログアウト</a>
-    <ul class="tools">
-        <li>
-            <h2>新しいスレッドを立てる</h2>
-            <form action="index.php" method="POST">
-                <label for="thread_name">スレッド名:</label>
-                <input type="text" id="thread_name" name="thread_name" required><br>
-                <label for="comment">コメント:</label>
-                <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
-                <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
-            </form>
-        </li>
-        <li>
-            <h2>画像アップローダー</h2>
-            <form action="img-upload.php" method="post" enctype="multipart/form-data">
-                <label for="image">画像を選択してください:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
-                <input type="submit" value="アップロード">
-            </form>
-        </li>
-    </ul>
+    <h2>画像アップローダー</h2>
+    <form action="img-upload.php" method="post" enctype="multipart/form-data">
+        <label for="image">画像を選択してください:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <input type="submit" value="アップロード">
+    </form>
 
     <h2>スレッド一覧</h2><!--ここはすべてChatGPTが書きました　動かないからって私にモンク言わないで-->
     <form action="" method="get">
@@ -156,7 +151,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
     </ul>
+    <h2>新しいスレッドを立てる</h2>
+    <form action="index.php" method="POST">
+        <label for="thread_name">スレッド名:</label>
+        <input type="text" id="thread_name" name="thread_name" required><br>
+        <label for="comment">コメント:</label>
+        <textarea id="comment" name="comment" rows="1.5" required></textarea><br>
+        <input type="submit" value="作成"><a href="/thread-rule.html">スレッドを立てる前に</a>
+    </form>
 
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const popupContainer = document.querySelector(".popup-container");
+    const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+
+    if (!hasVisitedBefore) {
+        // 初めてアクセスした場合、ポップアップを表示
+        popupContainer.style.top = "0"; // 上から表示するために位置を0に設定
+        setTimeout(() => {
+            closePopup();
+        }, 2000); // 2秒後にclosePopup関数を実行
+
+        // ローカルストレージに初めての訪問を記録
+        localStorage.setItem("hasVisitedBefore", "true");
+    }
+});
+
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+const popupContainer = document.querySelector(".popup-container");
+
+openBtn.addEventListener("click", () => {
+    popupContainer.style.top = "0"; // 上から表示するために位置を0に設定
+    setTimeout(() => {
+        closePopup();
+    }, 2000); // 2秒後にclosePopup関数を実行
+});
+
+closeBtn.addEventListener("click", () => {
+    closePopup();
+});
+
+function closePopup() {
+    popupContainer.classList.add("closing"); // クラスを追加
+    setTimeout(() => {
+        popupContainer.classList.remove("closing"); // クラスを削除
+        popupContainer.style.top = "-100%"; // 画面外に戻すために位置を-100%に設定
+    }, 2000); // 2秒後に実行
+}
+    </script>
     <script>
     // 表示順を切り替えるJavaScript
     function changeSort() {

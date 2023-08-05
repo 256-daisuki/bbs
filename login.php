@@ -37,21 +37,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>ログイン</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bbs.256server｜ログイン</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h2>ログイン</h2>
-    <?php if (isset($errorMessage)) : ?>
-        <p style="color: red;"><?php echo $errorMessage; ?></p>
-    <?php endif; ?>
-    <form action="login.php" method="POST">
-        <label for="email">メールアドレス:</label>
-        <input type="email" id="email" name="email" required><br>
-        <label for="password">パスワード:</label>
-        <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Login">
-    </form>
-    <a href="/create_account.php">新規登録</a>
+    <div class="login-main">
+        <div class="login-main-margin">
+            <h2>bbsにログイン</h2>
+            <?php if (isset($errorMessage)) : ?>
+                <p style="color: red;"><?php echo $errorMessage; ?></p>
+            <?php endif; ?>
+            <form action="login.php" method="POST">
+                <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
+                <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
+                <input type="submit" value="ログイン" class="submit">
+            </form>
+            <a href="/create_account.php">新規登録</a><br>
+            <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -63,3 +63,25 @@ body {
     background-color: #0248b1;
     border-radius: 2px;
 }
+
+@media screen and (max-width: 650px) {
+    .login-main {
+        margin: 0 auto;
+        width: 95%;
+        height: 348px;
+        border-radius: 10px;
+        background-color: #eee;
+        box-shadow: 0 0 8px gray;
+    }
+    
+    .login-main-margin {
+        margin: 0 auto;
+        padding-top: 25px;
+        margin-top: 5vw;
+        margin-left: 45px;
+    }
+
+    .post_word {
+        width: 70vw;
+    }
+}

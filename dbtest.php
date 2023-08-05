@@ -6,7 +6,7 @@ define('USERNAME', 'php-login');
 define('PASSWORD', '');
 
 try {
-  /// DB接続を試みる
+    // DB接続を試みる
     $db  = new PDO('mysql:host=' . HOSTNAME . ';dbname=' . DATABASE, USERNAME, PASSWORD);
     $msg = "MySQL への接続確認が取れました。";
 } catch (PDOException $e) {

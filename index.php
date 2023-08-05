@@ -11,7 +11,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
-$username = $_SESSION['username']; // ユーザー名を取得
+$username = $_SESSION['username'];
 
 //====================================//
 //==============bbs関係===============//
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "CREATE TABLE IF NOT EXISTS thread_{$threadName} (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), comment TEXT, created_at DATETIME)";
         $stmt = $dbh->query($sql);
         if ($stmt) {
-            // スレッド作成成功したら1番目の書き込みを追加
+            // スレッド作成成功したら1番目の書き込みを追加する
             $now = date('Y-m-d H:i:s');
             $sql = "INSERT INTO thread_{$threadName} (username, comment, created_at) VALUES (?, ?, ?)";
             $stmt = $dbh->prepare($sql);
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $lastId = $threadInfo['last_id'];
             $firstCreatedAt = $threadInfo['first_created_at'];
 
-            echo '<li><a href="thread.php?name=' . htmlspecialchars(substr($thread, 7)) . '">' . htmlspecialchars(substr($thread, 7)) . '（' . $lastId . '件の書き込み' . '）</a></li>';
+            echo '<li><a href="thread.php?name=' . htmlspecialchars(substr($thread, 7)) . '">' . htmlspecialchars(substr($thread, 7)) . '（' . $lastId . '）</a></li>';
         }
         ?>
     </ul>

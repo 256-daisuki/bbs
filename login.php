@@ -34,14 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bbs.256server｜ログイン</title>
     <link rel="stylesheet" href="sub.css">
 </head>
-
 <body>
     <div class="login-main">
         <div class="login-main-margin">

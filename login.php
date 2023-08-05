@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bbs.256server｜ログイン</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sub.css">
 </head>
 
 <body>
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="login.php" method="POST">
                 <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
                 <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
-                <input type="submit" value="ログイン" class="submit">
+                <input type="submit" value="ログイン" class="login_submit">
             </form>
             <a href="/create_account.php">新規登録</a><br>
             <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>

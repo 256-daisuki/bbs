@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </ul>
 
     <script>
-    // 表示順を切り替えるJavaScript関数
+    // 表示順を切り替えるJavaScript
     function changeSort() {
         const sort = document.querySelector('select[name="sort"]').value;
         const currentUrl = new URL(window.location.href);

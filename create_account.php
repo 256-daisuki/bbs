@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="login-main">
+    <div class="create-main">
         <div class="login-main-margin">
             <h2>アカウント作成</h2>
             <?php if (isset($errorMessage)) : ?>

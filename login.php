@@ -40,21 +40,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>bbs.256server｜ログイン</title>
     <link rel="stylesheet" href="sub.css">
 </head>
+
 <body>
-    <div class="login-main">
-        <div class="login-main-margin">
-            <h2>bbsにログイン</h2>
-            <?php if (isset($errorMessage)) : ?>
-                <p style="color: red;"><?php echo $errorMessage; ?></p>
-            <?php endif; ?>
-            <form action="login.php" method="POST">
-                <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
-                <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
-                <input type="submit" value="ログイン" class="login_submit">
-            </form>
-            <a href="/create_account.php">新規登録</a><br>
-            <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
+    <main>
+        <div class="login-main">
+            <div class="login-main-margin">
+                <h2>bbsにログイン</h2>
+                <?php if (isset($errorMessage)) : ?>
+                    <p style="color: red;"><?php echo $errorMessage; ?></p>
+                <?php endif; ?>
+                <form action="login.php" method="POST">
+                    <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
+                    <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
+                    <input type="submit" value="ログイン" class="login_submit">
+                </form>
+                <a href="/create_account.php">新規登録</a><br>
+            </div>
         </div>
-    </div>
+        <div class="freebbs-main">
+            <div class="freebbs-main-margin">
+                <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
+            </div>
+        </div>
+    </main>
+        
 </body>
 </html>

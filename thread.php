@@ -11,7 +11,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
-$username = $_SESSION['username']; // ユーザー名を取得
+$username = $_SESSION['username'];
 
 //====================================//
 //==============bbs関係===============//

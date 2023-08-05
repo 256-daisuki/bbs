@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-container {
+    position: fixed;
+    top: -100%; /* 画面外に配置 */
+    left: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: top 0.7s;
+}
+
+.popup-content {
+    width: 250px;
+    height: calc(60px + 2em);
+    background-color: #fff;
+    padding-left: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    cursor: pointer;
+}

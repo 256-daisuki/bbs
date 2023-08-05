@@ -57,23 +57,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="create-main">
-        <div class="login-main-margin">
-            <h2>アカウント作成</h2>
-            <?php if (isset($errorMessage)) : ?>
-                <p style="color: red;"><?php echo $errorMessage; ?></p>
-            <?php endif; ?>
-            <form action="create_account.php" method="POST">
-                <input type="text" id="username" class="post_word" name="username" required placeholder="ユーザー名"><br>
-                <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
-                <input type="password" id="password" class="post_word"  name="password" required placeholder="パスワード"><br>
-                <input type="password" id="confirm_password" class="post_word" name="confirm_password" required placeholder="パスワード確認"><br>
-                <a href="/bbs-rule.html">アカウントを作る前に読んでね</a><br>
-                <input type="submit" class="create_submit" value="アカウント作成する"><a href="/login.php">ログイン</a>
-            </form>
-            
+    <main>
+        <div class="create-main">
+            <div class="create-main-margin">
+                <h2>アカウント作成</h2>
+                <?php if (isset($errorMessage)) : ?>
+                    <p style="color: red;"><?php echo $errorMessage; ?></p>
+                <?php endif; ?>
+                <form action="create_account.php" method="POST">
+                    <input type="text" id="username" class="post_word" name="username" required placeholder="ユーザー名"><br>
+                    <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
+                    <input type="password" id="password" class="post_word"  name="password" required placeholder="パスワード"><br>
+                    <input type="password" id="confirm_password" class="post_word" name="confirm_password" required placeholder="パスワード確認"><br>
+                    <a href="/bbs-rule.html">アカウントを作る前に読んでね</a><br>
+                    <input type="submit" class="create_submit" value="アカウント作成する"><a href="/login.php">ログイン</a>
+                </form>
+                
+            </div>
         </div>
-    </div>
+    </main>
 </body>
 
 </html>

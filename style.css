@@ -5,6 +5,7 @@ body {
 
 main {
     padding-left: 5%;
+    padding-right: 5%;
 }
 
 .test {
@@ -42,7 +43,7 @@ header {
 .header-ul {
     margin: 0px;
     padding: 0px;
-    padding-left: 10px;
+    padding-left: 15px;
     list-style: none;
     display: flex;
 }

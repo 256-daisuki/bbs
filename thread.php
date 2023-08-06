@@ -55,50 +55,68 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
 </head>
 
 <body>
-    <h2>ようこそ<?php echo $username; ?>さん!</h2>
-    <a href="index.php">インデックスに戻る</a>
-    <a href="logout.php">ログアウト</a>
+    <header>
+        <ul class="header-ul">
+            <li class="title-256"><a href="#">256</a></li>
+            <li class="nav-link">
+                <nav>
+                    <ul>
+                        <li><a href="https://256server.com">home</a></li>
+                        <li><a href="https://256server.com/tools">tools</a></li>
+                        <li><a href="https://256server.com/history/index.html">history</a></li>
+                        <li><a href="./index.php">BBS</a></li>
+                    </ul>
+                </nav>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <a href="index.php">インデックスに戻る</a>
+        <a href="logout.php">ログアウト</a>
 
-    <h2><?php echo htmlspecialchars($threadName); ?></h2>
-    <form action="thread.php" method="POST">
-        <input type="hidden" name="thread" value="<?php echo $threadName; ?>">
-        <label for="comment">コメント:</label>
-        <textarea id="comment" name="comment" rows="1" cols="32" required onkeyup="ShowLength(value);" ></textarea>
-        <input type="submit" value="投稿">
-    </form>
-    <label>画像アップローダー</label>
-    <form action="img-upload.php" method="post" enctype="multipart/form-data">
-        <label for="image">画像を選択してください:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
-        <input type="submit" value="アップロード">
-    </form>
+        <h2><?php echo htmlspecialchars($threadName); ?></h2>
+        <form action="thread.php" method="POST">
+            <input type="hidden" name="thread" value="<?php echo $threadName; ?>">
+            <label for="comment">コメント:</label>
+            <textarea id="comment" name="comment" rows="1" cols="32" required onkeyup="ShowLength(value);" ></textarea>
+            <input type="submit" value="投稿">
+        </form>
+        <label>画像アップローダー</label>
+        <form action="img-upload.php" method="post" enctype="multipart/form-data">
+            <label for="image">画像を選択してください:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <input type="submit" value="アップロード">
+        </form>
 
-    <h3>書き込み</h3>
-    <?php
-    // カスタムのエスケープ関数
-    function custom_escape($str) {
-        return nl2br(htmlspecialchars($str, ENT_QUOTES));
-    }
+        <h3>書き込み</h3>
+    
+        <?php
+        // カスタムのエスケープ関数
+        function custom_escape($str) {
+            return nl2br(htmlspecialchars($str, ENT_QUOTES));
+        }
 
-    foreach ($comments as $comment) {
-        echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
+        foreach ($comments as $comment) {
+            echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
 
-        // コメント内のURLを解析して画像ファイルを<img>タグで表示
-        $content = custom_escape($comment['comment']);
-        $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
-            $url = $matches[1];
-            $headers = get_headers($url, 1);
-            if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'image/') === 0) {
-                return '<a href="' . $url . '"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
-            } else {
-                return '<a href="' . $url . '">' . $url . '</a>';
-            }
-        }, $content);
+            // コメント内のURLを解析して画像ファイルを<img>タグで表示
+            $content = custom_escape($comment['comment']);
+            $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
+                $url = $matches[1];
+                $headers = get_headers($url, 1);
+                if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'image/') === 0) {
+                    return '<a href="' . $url . '"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
+                } else {
+                    return '<a href="' . $url . '">' . $url . '</a>';
+                }
+            }, $content);
 
-        echo $content;
-        echo '</p>';
-    }
-    ?>
+            echo $content;
+            echo '</p>';
+        }
+        ?>
+    </main>
+    
     <script>
         // textareaのエンターキーの挙動をカスタマイズ
         document.getElementById("comment").addEventListener("keydown", function(event) {

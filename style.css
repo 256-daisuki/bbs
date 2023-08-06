@@ -1,5 +1,10 @@
 body {
     background-color: #eee;
+    margin: 0px;
+}
+
+main {
+    padding-left: 5%;
 }
 
 .test {
@@ -25,4 +30,61 @@ body {
 
 .img {
     width: 30vh;
+}
+
+/*==========ヘッダー==========*/
+header {
+    width: 100%;
+    padding: 0px;
+    background-color: #808080;
+}
+
+.header-ul {
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    list-style: none;
+    display: flex;
+}
+
+.title-256 {
+    margin-top: 3px;
+    margin-right: auto;
+}
+
+.title-256 a {
+    margin: 0px;
+    margin-top: 0px;
+    padding: 0px;
+    height: 40px;
+    color: #fff;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+nav {
+    margin-top: 7px;
+    margin-right: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.nav-link {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav ul {
+    display: flex;
+    margin-right: 3%;
+    justify-content: flex-end;
 }

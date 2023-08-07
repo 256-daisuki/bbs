@@ -53,6 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBS｜home</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BN5KGMB0GN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BN5KGMB0GN');
+    </script>
 </head>
 
 <body>
@@ -84,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2></h2>
         <a href="/bbs-rule.html">BBSのルール</a>
         <a href="logout.php">ログアウト</a>
+        <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
         <h2>画像アップローダー</h2>
         <form action="img-upload.php" method="post" enctype="multipart/form-data">
             <label for="image">画像を選択してください:</label>

@@ -13,6 +13,7 @@ main {
     border-radius: 6px;
     background-color: #eee;
     box-shadow: 0 0 8px gray;
+    transition: height 0.4s ease;
 }
 
 .login-main-margin {
@@ -79,6 +80,19 @@ main {
     border-bottom: 1px solid #555;
 }
 
+#caps-lock {
+    opacity: 0; /* 初めは非表示にする */
+    transition: opacity 0.4s ease; /* アニメーションを設定 */
+    color: red;
+    pointer-events: absolute;
+}
+
+.low {
+    position: relative;
+    top: 0;
+    transition: top 0.4s ease;
+}
+
 .login_submit {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -90,6 +104,8 @@ main {
     text-align: center;
     background-color: #0248b1;
     border-radius: 2px;
+
+    transition: 0.4s ease; /* アニメーションを設定 */
 }
 
 .create_submit {

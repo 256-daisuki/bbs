@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <main>
-        <div class="login-main">
+        <div class="login-main" id="login-main">
             <div class="login-main-margin">
                 <h2>bbsにログイン</h2>
                 <?php if (isset($errorMessage)) : ?>
@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form action="login.php" method="POST">
                     <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
                     <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
-                    <input type="submit" value="ログイン" class="login_submit">
+                    <p id="caps-lock"></p>
+                    <input type="submit" value="ログイン" class="login_submit" id="low">
                 </form>
                 <a href="/create_account.php">新規登録</a><br>
             </div>
@@ -63,6 +64,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </main>
-        
+    <script>
+        let isExtended = false; // div要素が伸ばされているかを管理するフラグ
+
+        document.addEventListener("keydown", function(event) {
+            const capsLockOn = event.getModifierState && event.getModifierState("CapsLock");
+            const messageElement = document.getElementById("caps-lock");
+            const divElement = document.getElementById("login-main");
+            const formContainer = document.querySelector("low");
+
+            if (capsLockOn && !isExtended) {
+                messageElement.textContent = "Caps-Lockがオンになっています";
+                messageElement.style.opacity = "1"; // メッセージを表示
+
+                // div要素のheightを伸ばす
+                divElement.style.height = (divElement.offsetHeight + 20) + "px";
+                isExtended = true; // フラグをtrueに設定
+
+                formContainer.style.top = "20px";
+            } else if (!capsLockOn && isExtended) {
+                messageElement.style.opacity = "0"; // アニメーションで非表示にする
+
+                // メッセージを非表示にする際に、div要素も元の高さに戻す
+                divElement.style.height = "334px";
+                isExtended = false; // フラグをfalseに設定
+
+                formContainer.style.top = "0";
+            }
+        });
+
+        // アニメーション終了時に非表示にする
+        const messageElement = document.getElementById("caps-lock");
+        messageElement.addEventListener("transitionend", function() {
+            if (messageElement.style.opacity === "0") {
+                messageElement.textContent = ""; // メッセージを空にする
+            }
+        });
+    </script>
 </body>
 </html>

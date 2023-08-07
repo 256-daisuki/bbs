@@ -33,6 +33,10 @@ main {
     width: 30vh;
 }
 
+@media screen and (max-width: 600px) {
+    /* 頑張ろう */
+}
+
 /*==========ヘッダー==========*/
 header {
     width: 100%;

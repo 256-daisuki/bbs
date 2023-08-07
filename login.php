@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <main>
-        <div class="login-main" id="login-main">
+        <div class="login-main" id="login-main" style="height: 300px;">
             <div class="login-main-margin">
                 <h2>bbsにログイン</h2>
                 <?php if (isset($errorMessage)) : ?>
@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="email" id="email" class="post_word" name="email" required placeholder="メールアドレス"><br>
                     <input type="password" id="password" class="post_word" name="password" required placeholder="パスワード"><br>
                     <p id="caps-lock"></p>
-                    <input type="submit" value="ログイン" class="login_submit" id="low">
+                    <input type="submit" value="ログイン" class="login_submit" id="low"><br>
+                    <div id="low-a" style="transition: 0.4s ease;"><a href="/create_account.php">新規登録</a></div>
                 </form>
-                <a href="/create_account.php">新規登録</a><br>
             </div>
         </div>
         <div class="freebbs-main">
@@ -71,33 +71,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const capsLockOn = event.getModifierState && event.getModifierState("CapsLock");
             const messageElement = document.getElementById("caps-lock");
             const divElement = document.getElementById("login-main");
-            const formContainer = document.querySelector("low");
+            const submitElement = document.getElementById("low");
+            const aElement = document.getElementById('low-a');
+            
 
             if (capsLockOn && !isExtended) {
                 messageElement.textContent = "Caps-Lockがオンになっています";
                 messageElement.style.opacity = "1"; // メッセージを表示
 
                 // div要素のheightを伸ばす
-                divElement.style.height = (divElement.offsetHeight + 20) + "px";
-                isExtended = true; // フラグをtrueに設定
+                divElement.style.height = (divElement.offsetHeight + 30) + "px";
 
-                formContainer.style.top = "20px";
+                submitElement.style.transform = "translateY(0px)";
+                aElement.style.transform = 'translateY(0px)';
+                isExtended = true; // フラグをtrueに設定
             } else if (!capsLockOn && isExtended) {
                 messageElement.style.opacity = "0"; // アニメーションで非表示にする
 
                 // メッセージを非表示にする際に、div要素も元の高さに戻す
-                divElement.style.height = "334px";
+                divElement.style.height = "300px";
+                submitElement.style.transform = "translateY(-40px)";
+                aElement.style.transform = 'translateY(-40px)';
                 isExtended = false; // フラグをfalseに設定
-
-                formContainer.style.top = "0";
             }
         });
 
         // アニメーション終了時に非表示にする
         const messageElement = document.getElementById("caps-lock");
+        const submitElement = document.getElementById("low");
+
+        submitElement.style.transform = "translateY(0px)";
+
         messageElement.addEventListener("transitionend", function() {
             if (messageElement.style.opacity === "0") {
-                messageElement.textContent = ""; // メッセージを空にする
+
+                massageElement.style.display = "none";
             }
         });
     </script>

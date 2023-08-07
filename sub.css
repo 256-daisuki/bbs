@@ -87,12 +87,6 @@ main {
     pointer-events: absolute;
 }
 
-.low {
-    position: relative;
-    top: 0;
-    transition: top 0.4s ease;
-}
-
 .login_submit {
     margin-top: 15px;
     margin-bottom: 15px;

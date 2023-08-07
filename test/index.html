@@ -3,75 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caps-Lock Check</title>
+    <title>Document</title>
     <style>
-        #caps-lock {
-            opacity: 0; /* 初めは非表示にする */
-            transition: opacity 0.5s ease; /* アニメーションを設定 */
-        }
-
-        #extend-div {
-            width: 200px; /* 初めの幅を設定 */
-            height: 50px; /* 初めの高さを設定 */
-            background-color: lightblue;
-            transition: height 0.5s ease; /* アニメーションを設定 */
-        }
-
-        /* スムーズに移動させるためのスタイル */
-        .form-container {
-            position: relative;
-            top: 0;
-            transition: top 0.5s ease;
+        #movingParagraph {
+            width: 200px;
+            height: 100px;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <input type="text" placeholder="Input field">
-    </div>
-    <div id="extend-div">
-        <p id="caps-lock"></p>
-    </div>
-    
+    <button onclick="moveParagraph()">Move Paragraph</button>
+    <p id="movingParagraph">This is a paragraph element</p>
+
 
     <script>
-        let isExtended = false; // div要素が伸ばされているかを管理するフラグ
+        function moveParagraph() {
+            const movingParagraph = document.getElementById('movingParagraph');
+            movingParagraph.style.transform = 'translateY(20px)';
+        }
 
-        document.addEventListener("keydown", function(event) {
-            const capsLockOn = event.getModifierState && event.getModifierState("CapsLock");
-            const messageElement = document.getElementById("caps-lock");
-            const divElement = document.getElementById("extend-div");
-            const formContainer = document.querySelector(".form-container");
-
-            if (capsLockOn && !isExtended) {
-                messageElement.textContent = "Caps-Lockがオンになっています";
-                messageElement.style.opacity = "1"; // メッセージを表示
-
-                // div要素のheightを伸ばす
-                divElement.style.height = (divElement.offsetHeight + 20) + "px";
-                isExtended = true; // フラグをtrueに設定
-
-                // input要素を20px下に移動させる
-                formContainer.style.top = "20px";
-            } else if (!capsLockOn && isExtended) {
-                messageElement.style.opacity = "0"; // アニメーションで非表示にする
-
-                // メッセージを非表示にする際に、div要素も元の高さに戻す
-                divElement.style.height = "50px";
-                isExtended = false; // フラグをfalseに設定
-
-                // input要素を元の位置に戻す
-                formContainer.style.top = "0";
-            }
-        });
-
-        // アニメーション終了時に非表示にする
-        const messageElement = document.getElementById("caps-lock");
-        messageElement.addEventListener("transitionend", function() {
-            if (messageElement.style.opacity === "0") {
-                messageElement.textContent = ""; // メッセージを空にする
-            }
-        });
     </script>
 </body>
 </html>

@@ -54,7 +54,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="dark-mode">
     <header>
         <ul class="header-ul">
             <li class="title-256"><a href="#">256</a></li>
@@ -73,6 +73,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     <main>
         <a href="index.php">インデックスに戻る</a>
         <a href="logout.php">ログアウト</a>
+        <button id="darkModeButton">ダークモード</button>
 
         <h2><?php echo htmlspecialchars($threadName); ?></h2>
         <form action="thread.php" method="POST">
@@ -125,6 +126,40 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 this.form.submit(); // 送信
             }
         })
+    </script>
+        <script>
+        const darkModeButton = document.getElementById('darkModeButton');
+        const content = document.getElementById('dark-mode');
+        const DARK_MODE_COOKIE_NAME = 'darkMode';
+
+        darkModeButton.addEventListener('click', toggleDarkMode);
+
+        // ページ読み込み時に保存されたダークモードの状態を復元
+        if (getDarkModeCookie()) {
+            content.classList.add('dark-mode');
+        }
+        header-dark
+        
+        function toggleDarkMode() {
+            content.classList.toggle('dark-mode');
+            const darkMode = content.classList.contains('dark-mode');
+            setDarkModeCookie(darkMode);
+        }
+
+        function setDarkModeCookie(value) {
+            document.cookie = `${DARK_MODE_COOKIE_NAME}=${value}; path=/`;
+        }
+
+        function getDarkModeCookie() {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === DARK_MODE_COOKIE_NAME) {
+                return value.trim() === 'true';
+                }
+            }
+        return false;
+        }
     </script>
     <script>
         const textarea = document.getElementById('comment');

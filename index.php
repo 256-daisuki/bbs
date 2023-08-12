@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 
-<body>
+<body id="dark-mode">
     <header>
         <ul class="header-ul">
             <li class="title-256"><a href="#">256</a></li>
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </li>
         </ul>
     </header>
-        <main>
+    <main>
         <h1>bbs.256server <div style="color:red">試運転</div></h1>
         <div class="test">
             <div class="popup-container">
@@ -90,10 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-        <h2></h2>
         <a href="/bbs-rule.html">BBSのルール</a>
         <a href="logout.php">ログアウト</a>
         <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
+        <button id="darkModeButton">ダークモード</button>
         <h2>画像アップローダー</h2>
         <form action="img-upload.php" method="post" enctype="multipart/form-data">
             <label for="image">画像を選択してください:</label>
@@ -232,6 +232,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         return null;
     }
+    </script>
+    <script>
+        const darkModeButton = document.getElementById('darkModeButton');
+        const content = document.getElementById('dark-mode');
+        const DARK_MODE_COOKIE_NAME = 'darkMode';
+
+        darkModeButton.addEventListener('click', toggleDarkMode);
+
+        // ページ読み込み時に保存されたダークモードの状態を復元
+        if (getDarkModeCookie()) {
+            content.classList.add('dark-mode');
+        }
+        header-dark
+        
+        function toggleDarkMode() {
+            content.classList.toggle('dark-mode');
+            const darkMode = content.classList.contains('dark-mode');
+            setDarkModeCookie(darkMode);
+        }
+
+        function setDarkModeCookie(value) {
+            document.cookie = `${DARK_MODE_COOKIE_NAME}=${value}; path=/`;
+        }
+
+        function getDarkModeCookie() {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === DARK_MODE_COOKIE_NAME) {
+                return value.trim() === 'true';
+                }
+            }
+        return false;
+        }
     </script>
     <script>
     // 表示順を切り替えるJavaScript

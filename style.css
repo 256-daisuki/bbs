@@ -3,6 +3,19 @@ body {
     margin: 0px;
 }
 
+.dark-mode {
+    background-color: #2e3035;
+    color: #eee;
+}
+
+.dark-mode header {
+    background-color: #1e1f22;
+}
+
+.dark-mode a {
+    color: #eee;
+}
+
 main {
     padding-left: 5%;
     padding-right: 5%;

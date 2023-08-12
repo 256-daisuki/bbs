@@ -5,28 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #movingParagraph {
-            width: 200px;
-            height: 100px;
-            background-color: blue;
+        body {
+            background-color: white;
+            color: black;
+        }
+
+        .dark-mode {
+            background-color: black;
             color: white;
-            text-align: center;
-            line-height: 100px;
-            transition: transform 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <button onclick="moveParagraph()">Move Paragraph</button>
-    <p id="movingParagraph">This is a paragraph element</p>
-
-
+    <button id="darkModeButton">Toggle Dark Mode</button>
+    <div id="content">
+        <h1>Welcome to My Website</h1>
+        <p>This is some content on my website.</p>
+    </div>
     <script>
-        function moveParagraph() {
-            const movingParagraph = document.getElementById('movingParagraph');
-            movingParagraph.style.transform = 'translateY(20px)';
+        const darkModeButton = document.getElementById('darkModeButton');
+        const content = document.getElementById('content');
+        const DARK_MODE_COOKIE_NAME = 'darkMode';
+
+        darkModeButton.addEventListener('click', toggleDarkMode);
+
+        // ページ読み込み時に保存されたダークモードの状態を復元
+        if (getDarkModeCookie()) {
+            content.classList.add('dark-mode');
         }
 
+        function toggleDarkMode() {
+            content.classList.toggle('dark-mode');
+            const darkMode = content.classList.contains('dark-mode');
+            setDarkModeCookie(darkMode);
+        }
+
+        function setDarkModeCookie(value) {
+            document.cookie = `${DARK_MODE_COOKIE_NAME}=${value}; path=/`;
+        }
+
+        function getDarkModeCookie() {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === DARK_MODE_COOKIE_NAME) {
+                return value.trim() === 'true';
+                }
+            }
+        return false;
+        }
     </script>
 </body>
 </html>

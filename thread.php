@@ -105,7 +105,13 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
             $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
                 $url = $matches[1];
                 $headers = get_headers($url, 1);
-                if (isset($headers['Content-Type']) && strpos($headers['Content-Type'], 'image/') === 0) {
+                $contentType = isset($headers['Content-Type']) ? $headers['Content-Type'] : '';
+                
+                if (is_array($contentType)) {
+                    $contentType = implode('', $contentType);
+                }
+                
+                if (strpos($contentType, 'image/') === 0) {
                     return '<a href="' . $url . '"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
                 } else {
                     return '<a href="' . $url . '">' . $url . '</a>';

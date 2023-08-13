@@ -94,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="logout.php">ログアウト</a>
         <a href="https://256server.com/bbs/index.php">誰でも書き込めるbbs</a>
         <button id="darkModeButton">ダークモード</button>
+        <input type="button" value="リロード" onclick="window.location.reload();" />
+
         <h2>画像アップローダー</h2>
         <form action="img-upload.php" method="post" enctype="multipart/form-data">
             <label for="image">画像を選択してください:</label>

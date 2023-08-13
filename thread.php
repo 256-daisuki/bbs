@@ -74,6 +74,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         <a href="index.php">インデックスに戻る</a>
         <a href="logout.php">ログアウト</a>
         <button id="darkModeButton">ダークモード</button>
+        <input type="button" value="リロード" onclick="window.location.reload();" />
 
         <h2><?php echo htmlspecialchars($threadName); ?></h2>
         <form action="thread.php" method="POST">
@@ -112,9 +113,9 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 }
                 
                 if (strpos($contentType, 'image/') === 0) {
-                    return '<a href="' . $url . '"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
+                    return '<a href="' . $url . '" target="_blank"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
                 } else {
-                    return '<a href="' . $url . '">' . $url . '</a>';
+                    return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
                 }
             }, $content);
 

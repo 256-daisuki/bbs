@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $filePath = $uploadDir . $fileName;
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $filePath)) {
-        $imageURL = 'https://bbs.256server.com' . '/img/' . $fileName;
+        $imageURL = 'https://test.256server.com' . '/img/' . $fileName;
         header('Location: ' . $imageURL);
         exit;
     } else {

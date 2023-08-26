@@ -125,7 +125,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         ?>
     </main>
     
-    <script>
+    <!--<script>
         // textareaのエンターキーの挙動をカスタマイズ
         document.getElementById("comment").addEventListener("keydown", function(event) {
             if (event.keyCode === 13 && !event.shiftKey) {
@@ -133,7 +133,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
                 this.form.submit(); // 送信
             }
         })
-    </script>
+    </script>-->
         <script>
         const darkModeButton = document.getElementById('darkModeButton');
         const content = document.getElementById('dark-mode');

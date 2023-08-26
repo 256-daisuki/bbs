@@ -54,14 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>BBS｜home</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BN5KGMB0GN"></script>
+    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-BN5KGMB0GN"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-BN5KGMB0GN');
-    </script>
+    </script>-->
 </head>
 
 <body id="dark-mode">

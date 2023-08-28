@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once 'dbconnect.php';
 ini_set("display_errors", 1);
@@ -42,6 +43,17 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
+
+$commentCount = 0;
+//スレッド内部の書き込み総数を取得
+$sql = "SELECT COUNT(*) as row_count FROM thread_{$threadName}";
+$result = $dbh->query($sql);
+if ($result) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $commentCount = $row["row_count"];
+}
+
+echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadName."';</script>";
 ?>
 
 <!DOCTYPE html>
@@ -86,19 +98,19 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         <label>画像アップローダー</label>
         <form action="img-upload.php" method="post" enctype="multipart/form-data">
             <label for="image">画像を選択してください:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+            <input type="file" id="image" name="image" required><!--大変身勝手ながrあ僕のガラケーで動かすためには形式指定を外すのです！-->
             <input type="submit" value="アップロード">
         </form>
 
-        <h3>書き込み</h3>
+        <h3 id="kakikomi">書き込み</h3>
     
         <?php
-        // カスタムのエスケープ関数
-        function custom_escape($str) {
-            return nl2br(htmlspecialchars($str, ENT_QUOTES));
-        }
+            // カスタムのエスケープ関数
+            function custom_escape($str) {
+                return nl2br(htmlspecialchars($str, ENT_QUOTES));
+            }
 
-        foreach ($comments as $comment) {
+            foreach ($comments as $comment) {
             echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
 
             // コメント内のURLを解析して画像ファイルを<img>タグで表示
@@ -134,7 +146,7 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
             }
         })
     </script>-->
-        <script>
+    <script>
         const darkModeButton = document.getElementById('darkModeButton');
         const content = document.getElementById('dark-mode');
         const DARK_MODE_COOKIE_NAME = 'darkMode';
@@ -177,6 +189,40 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
         }
 
         textarea.addEventListener('input', adjustTextareaRows);
+    </script>
+    <script>//n秒毎のXMLによる新規コメント確認
+        setInterval(function() {
+            checknew();
+        }, 1000);
+
+        function checknew() {
+            var xhr = new XMLHttpRequest();
+            var url = "checknewcomment.php";
+            var data = "threadName=" + encodeURIComponent(threadName) + "&commentCount=" + encodeURIComponent(commentCount);
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var newjsonArray = response.dataArray; // dataArrayはPHPスクリプトで定義されたJSONキーに合わせてください
+                    if (response[0] === "no") {
+                        //スルー
+                    } else {
+                        for (let i = 0; i < response.length;) {
+                            commentCount += 1;
+                            var newElement = document.createElement("p");
+                            newElement.innerHTML = response[i].id + " <strong>" + response[i].username + "</strong> " + response[i].created_at + "<br>" + response[i].comment;
+                            kakikomi.parentNode.insertBefore(newElement, kakikomi.nextSibling);
+                            i++;
+                        }
+                    }
+            }
+        };
+
+        xhr.send(data);
+    }   
     </script>
 </body>
 

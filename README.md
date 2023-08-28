@@ -1,5 +1,5 @@
 # bbs
-userデータベースを作成し、
+bbsデータベースを作成し、
 SQL文
 `CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,

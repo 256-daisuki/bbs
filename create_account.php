@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
 
             // ログインページにリダイレクト
-            header('Location: login.php');
+            header('Location: ./login.php');
             exit;
         }
     }

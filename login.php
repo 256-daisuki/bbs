@@ -19,7 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // ユーザーが存在するかチェック
     if ($stmt->rowCount() > 0) {
-        // ログイン成功
+        session_unset();
+        session_destroy();
+        session_set_cookie_params(10368000);//セッションの期限の延長
+        session_start();
         $user = $stmt->fetch();
         $_SESSION['email'] = $email;
         $_SESSION['username'] = $user['username']; // ユーザー名をセッションに保存

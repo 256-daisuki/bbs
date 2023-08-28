@@ -214,10 +214,10 @@ echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadN
 
         textarea.addEventListener('input', adjustTextareaRows);
     </script>
-    <script>//0.5秒毎のXMLによる新規コメント確認
+    <script>//2秒毎のXMLによる新規コメント確認
         setInterval(function() {
             checknew();
-        }, 500);
+        }, 2000);
 
         function checknew() {
             var xhr = new XMLHttpRequest();

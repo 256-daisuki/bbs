@@ -35,7 +35,8 @@ if (isset($_GET['name']) && !empty($_GET['name'])) {
     $threadName = $_GET['name'];
 
     // スレッド内の書き込みを取得（idの新しいものが上にくるようにする）
-    $sql = "SELECT * FROM thread_{$threadName} ORDER BY id DESC";
+    $offset = isset($_GET['page']) ? ($_GET['page'] - 1) * 100 : 0;
+    $sql = "SELECT * FROM thread_{$threadName} ORDER BY id DESC LIMIT 100 OFFSET {$offset}";
     $stmt = $dbh->query($sql);
     $comments = $stmt->fetchAll();
 } else {
@@ -102,6 +103,17 @@ echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadN
             <input type="submit" value="アップロード">
         </form>
 
+        <div class="pagination">
+            <h3>
+                ページ
+                <?php
+                for ($i = 1; $i <= ceil($commentCount / 100); $i++) {
+                    echo ' <a href="?name=' . $threadName . '&page=' . $i . '">' . $i . '</a>';
+                }
+                ?>
+            </h3>
+        </div>
+
         <h3 id="kakikomi">書き込み</h3>
     
         <?php
@@ -111,30 +123,42 @@ echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadN
             }
 
             foreach ($comments as $comment) {
-            echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
-
-            // コメント内のURLを解析して画像ファイルを<img>タグで表示
-            $content = custom_escape($comment['comment']);
-            $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
-                $url = $matches[1];
-                $headers = get_headers($url, 1);
-                $contentType = isset($headers['Content-Type']) ? $headers['Content-Type'] : '';
-                
-                if (is_array($contentType)) {
-                    $contentType = implode('', $contentType);
-                }
-                
-                if (strpos($contentType, 'image/') === 0) {
-                    return '<a href="' . $url . '" target="_blank"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
-                } else {
-                    return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
-                }
-            }, $content);
-
-            echo $content;
-            echo '</p>';
-        }
+                echo '<p>' . $comment['id'] . ' <strong>'. custom_escape($comment['username']) . '</strong> ' . $comment['created_at'] . '<br>';
+            
+                // コメント内のURLを解析して画像ファイルを<img>タグで表示
+                $content = custom_escape($comment['comment']);
+                $content = preg_replace_callback('/(https?:\/\/[^\s<>"\'()]+)/', function($matches) {
+                    $url = $matches[1];
+                    $headers = get_headers($url, 1);
+                    $contentType = isset($headers['Content-Type']) ? $headers['Content-Type'] : '';
+                    
+                    if (is_array($contentType)) {
+                        $contentType = implode('', $contentType);
+                    }
+                    
+                    if (strpos($contentType, 'image/') === 0) {
+                        return '<a href="' . $url . '" target="_blank"><img src="' . $url . '" class="img" alt="' . $url . '"></a>';
+                    } else {
+                        return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+                    }
+                }, $content);
+            
+                echo $content;
+                echo '</p>';
+            }
         ?>
+
+        <div class="pagination">
+            <h3>
+                ページ
+                <?php
+                for ($i = 1; $i <= ceil($commentCount / 100); $i++) {
+                    echo ' <a href="?name=' . $threadName . '&page=' . $i . '">' . $i . '</a>';
+                }
+                ?>
+            </h3>
+        </div>
+
     </main>
     
     <!--<script>
@@ -190,10 +214,10 @@ echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadN
 
         textarea.addEventListener('input', adjustTextareaRows);
     </script>
-    <script>//n秒毎のXMLによる新規コメント確認
+    <script>//0.5秒毎のXMLによる新規コメント確認
         setInterval(function() {
             checknew();
-        }, 1000);
+        }, 500);
 
         function checknew() {
             var xhr = new XMLHttpRequest();

@@ -161,7 +161,7 @@ echo "<script>let commentCount = ".$commentCount."; let threadName = '".$threadN
 
     </main>
     
-    <!--<script>
+    <!--<script>　これどうにかしたいんよね
         // textareaのエンターキーの挙動をカスタマイズ
         document.getElementById("comment").addEventListener("keydown", function(event) {
             if (event.keyCode === 13 && !event.shiftKey) {
